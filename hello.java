@@ -198,3 +198,68 @@ class BalancedExpressionChecker {
         }
     }
 }
+// Q5
+import java.util.LinkedList;
+import java.util.Queue;
+
+class TreeNode {
+    int data;
+    TreeNode left, right;
+
+    public TreeNode(int item) {
+        data = item;
+        left = right = null;
+    }
+}
+
+public class LeftViewBinaryTree {
+    TreeNode root;
+
+    // Function to print the left view of the binary tree
+    void leftView() {
+        if (root == null) {
+            return;
+        }
+
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
+
+        while (!queue.isEmpty()) {
+            int levelSize = queue.size();
+
+            for (int i = 0; i < levelSize; i++) {
+                TreeNode current = queue.poll();
+
+                // Print the first node at each level (leftmost node)
+                if (i == 0) {
+                    System.out.print(current.data + " ");
+                }
+
+                // Add the left and right children of the current node to the queue
+                if (current.left != null) {
+                    queue.add(current.left);
+                }
+                if (current.right != null) {
+                    queue.add(current.right);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        LeftViewBinaryTree tree = new LeftViewBinaryTree();
+
+        // Construct a sample binary tree
+        tree.root = new TreeNode(1);
+        tree.root.left = new TreeNode(2);
+        tree.root.right = new TreeNode(3);
+        tree.root.left.left = new TreeNode(4);
+        tree.root.left.right = new TreeNode(5);
+        tree.root.right.left = new TreeNode(6);
+        tree.root.right.right = new TreeNode(7);
+
+        // Print the left view of the binary tree
+        System.out.println("Left view of the binary tree:");
+        tree.leftView();
+    }
+}
